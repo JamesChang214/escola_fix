@@ -1,0 +1,361 @@
+models:
+  Tusers:
+    name: string:100 nullable
+  School:
+    name: string:100 nullable
+    short_name: string:50 nullable
+    type: string:20 nullable
+    globaluse: boolean nullable
+  Grade:
+    parent_id: id foreign:grades nullable
+    lft: integer unsigned nullable
+    rgt: integer unsigned nullable
+    depth: integer unsigned nullable
+    name: string:100 nullable
+    short_name: string:50 nullable
+  Centre:
+    name: string:100 nullable
+    short_name: string:50 nullable
+    2c_name: string:2 nullable
+    regno: string:50 nullable
+    fyending: nullable date
+    address1: string:100 nullable
+    address2: string:100 nullable
+    address3: string:100 nullable
+    address4: string:100 nullable
+    city: string:50 nullable
+    state: string:50 nullable
+    country: string:50 nullable
+    postal_code: string:50 nullable
+    area_code: string:10 nullable
+    phone: string:50 nullable
+    email: string:100 nullable
+    www:  string:50 nullable
+    contact: string:100 nullable
+    calendar: string:50 nullable
+    logo: string:300 nullable
+    logo_small: string:300 nullable
+    currency: string:3 nullable
+    invoice_number_type: string:10 nullable
+    invoice_number_format: string:50 nullable
+    receipt_number_format: string:50 nullable
+    invoice_template: string nullable
+    receipt_template: string nullable
+    contra_template: string nullable
+    refund_template: string nullable
+    payment_insturctions1: text nullable
+    payment_instructions2: text nullable
+    credit_instructions: text nullable
+    next_invoice_no: integer nullable
+    next_adjustment_no: integer nullable
+    next_receipt_no: integer nullable
+    next_refund_no: integer nullable
+    next_contra_no: integer nullable
+    next_expense_no: integer nullable
+    next_expense_payment_no: integer nullable
+    next_claim_no: integer nullable
+    next_journal_no: integer nullable
+    cash_on_hand: decimal:10,2 nullable
+    created_user_id: id foreign:users nullable
+    edited_user_id: id foreign:users nullable
+    deleted_user_id: id foreign:users nullable
+    softdeletes: true
+  Student:
+    first_name: string:50 nullable
+    middle_name: string:50 nullable
+    last_name: string:50 nullable
+    common_name: string:50 nullable
+    name_format: string:10 nullable
+    gender: sring:10 nullable
+    dob: nullable date
+    ethnicity: string:20 nullable
+    language: string:20 nullable
+    identification: string nullable
+    contact1: id foreign:guardians nullable
+    contact2: id foreign:guardians nullable
+    school_id: id foreign:schools nullable
+    address1: string:100 nullable
+    address2: string:100 nullable
+    address3: string:100 nullable
+    address4: string:100 nullable
+    city: string:50 nullable
+    state: string:50 nullable
+    country: string:50 nullable
+    postal_code: string:50 nullable
+    area_code: string:10 nullable
+    phone: string nullable
+    email: string nullable
+    avatar: string nullable
+    enrollment_date: nullable date
+    source: string nullable
+    grade_id: id foreign:grades nullable
+    status: string:20 nullable
+    centre_id: id foreign:centres nullable
+    softdeletes: true
+  Profile:
+    name: string:100 nullable
+    multiple_school: boolean nullable
+    short_name: string:50 nullable
+    syear: string:4 nullable
+    time_start: string:5 nullable
+    time_end: string:5 nullable
+    duration: string:5 nullable
+    order: integer nullable
+    globaluse: boolean nullable
+  Period:
+    name: string:100
+    short_name: string:50
+    syear: string:4
+    time_start: string:5
+    time_end: string:5
+    duration: string:5
+    order: integer nullable
+    globaluse: boolean
+    published: boolean
+  Classertemplate:
+    name: string:100 nullable
+    subject: string:100 nullable
+    course: string:100 nullable
+    grade_id: id foreign:grades nullable
+    seats: integer nullable
+    period: string:50 nullable
+    graded: boolean nullable
+    published: boolean nullable
+    attendance: boolean nullable
+    location: string:20 nullable
+    credits: integer nullable
+    format: string:20 nullable
+    syear: string:4 nullable
+    lesson_price: decimal:10,2 nullable
+    material: decimal:10,2 nullable
+    registration: decimal:10,2 nullable
+    globaluse: boolen nullable
+  Classer:
+    classertemplate_id: id foreign:classertemplates nullable
+    centre_id: id foreign:centres nullable
+    name: string:50 nullable
+    short_name: string:20 nullable
+    subject: string:50 nullable
+    grade_id: id foreign:grades nullable
+    syear: string:4 nullable
+    period_id: id foreign:periods nullable
+    location: string:1 nullable
+    days: string:1 nullable
+    start_date: nullable date
+    end_date: nullable date
+    credits: integer nullable
+    seats: integer nullable
+    seats_avail: integer nullable
+    graded: boolean nullable
+    attendance: boolean nullable
+    published: boolean nullable
+    created_user_id: id foreign:users nullable
+    edited_user_id: id foreign:users nullable
+    deleted_user_id: id foreign:users nullable
+  Guardian:
+    first_name: string:100 nullable
+    last_name: string:100 nullable
+    common_name: string:100 nullable
+    name_format: string nullable
+    student_id: id foreign:students nullable
+    address1: string:100 nullable
+    address2: string:100 nullable
+    address3: string:100 nullable
+    address4: string:100 nullable
+    city: string:50 nullable
+    state: string:50 nullable
+    country: string:50 nullable
+    postal_code: string:50 nullable
+    area_code: string:10 nullable
+    phone: string nullable
+    email: string nullable
+    created_user_id: id foreign:users nullable
+    edited_user_id: id foreign:users nullable
+    deleted_user_id: id foreign:users nullable
+    relationships:
+      belongsToMany: Student
+  ScheduleClasser:
+    student_id: id foreign nullable
+    classer_id: id foreign nullable
+    enrollment_date: nullable date nullable
+    withdrawl_date: nullable date nullable
+    reason: string:30 nullable
+    created_user_id: id foreign:users nullable
+    edited_user_id: id foreign:users nullable
+    deleted_user_id: id foreign:users nullable
+  ScheduleTeacher:
+    classer_id: id foreign:classers nullable
+    user_id: id foreign:users nullable
+    start_date: nullable date
+    finish_date: nullable date nullable
+    created_user_id: id foreign:users nullable
+    edited_user_id: id foreign:users nullable
+    deleted_user_id: id foreign:users nullable
+  InvoiceFeeType:
+    name: string nullable
+    short_name: string:20 nullable
+    syear: string:4 nullable
+    grade_id: id foreign:grades nullable
+    sort_order: integer nullable
+    amount: decimal:10,2 nullable
+    taxable: boolean nullable
+    tax_percentage: integer nullable
+    revenue_start_date: nullable date
+    revenue_end_date: nullable date
+    issue_date: nullable date
+    due_date: nullable date
+    usable_start_date: nullable date
+    usable_end_date: nullable date
+    globaluse: boolean nullable
+    is_usable: string nullable
+    is_refundable: boolean nullable
+    account_id: integer nullable
+    payment_instructions: text nullable
+    small_print: text nullable
+    softdeletes: true
+    relationships:
+      hasMany: Grade
+  PaymentType:
+    name: string nullable
+    short_name: string:20 nullable
+    syear: string:4 nullable
+    centre_id: id foreign:centres nullable
+    processing_fee: decimal:10,2 nullable
+    processing_percentage: decimal:10,2 nullable
+    is_usable: string nullable
+    account_id: integer nullable
+    globaluse: boolean nullable
+    softdeletes: true
+  Link:
+    document_type: string nullable
+    link_key: integer nullable
+    link_id: integer nullable
+  Invoice:
+    invoice_number: string:30 nullable
+    centre_id: id foreign:centres nullable
+    student_id: id foreign:students nullable
+    syear: string:4 nullable
+    revenue_start_date: nullable date
+    revenue_end_date: nullable date
+    invoice_date: nullable date
+    due_date: nullable date
+    amount: decimal:10,2 nullable
+    discount: decimal:10,2 nullable
+    adjustment: decimal:10,2 nullable
+    tax: decimal:10,2 nullable
+    balance: decimal:10,2 nullable
+    name: string:100 nullable
+    address1: string:100 nullable
+    address2: string:100 nullable
+    address3: string:100 nullable
+    address4: string:100 nullable
+    postal_code: string:20 nullable
+    country: string:50 nullable
+    phone: string:50 nullable
+    printed_date: nullable date
+    emailed_date: nullable date
+    instructions_1: text nullable
+    instructions_2: text nullable
+    instructions_3: text nullable
+    instructions_4: text nullable
+    invoice_header: text nullable
+    invoice_footer: string:100 nullable
+    invoice_template: string nullable
+    private_note: string nullable
+    public_note: string nullable
+    status: string:20 nullable
+    source: string:20 nullable
+    created_user_id: id foreign:users nullable
+    edited_user_id: id foreign:users nullable
+    deleted_user_id: id foreign:users nullable
+    softdeletes: true
+    relationships:
+      hasMany: InvoiceItem
+  InvoiceItem:
+    invoice_id: id foreign:invoices nullable
+    student_id: id foreign:students nullable
+    invoice_fee_type_id: id foreign:invoicefeetypes nullable
+    revenue_start_date: nullable date
+    revenue_end_date: nullable date
+    syear: string:4 nullable
+    classer_id: id foreign:classers nullable
+    description: string:100 nullable
+    amount: decimal:10,2 nullable
+    quantity: integer nullable
+    discount: decimal:10,2 nullable
+    total_amount: decimal:10,2 nullable
+    tax: decimal:10,2 nullable
+    comment: string nullable
+    order: integer nullable
+    created_user_id: id foreign:users nullable
+    edited_user_id: id foreign:users nullable
+    deleted_user_id: id foreign:users nullable
+    softdeletes: true
+  InvoicePayment:
+    invoice_id: id foreign:invoices nullable
+    student_id: id foreign:students nullable
+    centre_id: id foreign:centres nullable
+    syear: string:4 nullable
+    receipt_number: string nullable
+    amount: decimal:10,2 nullable
+    payment_type_id: id foreign:payment_types nullable
+    private_note: text nullable
+    public_note: text nullable
+    cheuque_number: string:128 nullable
+    bank_name: string:128 nullable
+    cleared: boolen  nullable
+    cleared_date: nullable date
+    user_id: id foreign:users nullable
+    status: string nullable
+    source: string 20 nullable
+  InvoicePaymentVoid:
+    invoice_payment_id: id foreign:invoice_payments nullable
+    reason: string nullable
+    voided_date: date nullable
+    volided_by: id foregin:users nullable
+  FinanceDocument:
+    type: string nullable
+    link_key: integer nullable
+    link_id: integer nullable
+    centre_id: id foreign:centres nullable
+    syear: string:4 nullable
+    vendor_id: integer nullable
+    student_id: id foreign:students nullable
+    document_no: string nullable
+    discount_amount: decimal:10,2 nullable
+    tax_amount: decimal:10,2 nullable
+    total_discount_amount: decimal:10,2 nullable
+    total_tax_amount: decimal:10,2 nullable
+    total_amount: decimal:10,2 nullable
+    reason: string nullable
+    source: string 20 nullable
+    status: string nullable
+    transaction_payee: string nullable
+    transaction_type_id: integer nullable
+    transaction_doc_no: string nullable
+    transaction_date: nullable date
+    private_note: text nullable
+    public_note: text nullable
+    user_id: id foreign:users nullable
+    cleared_date: nullable datetime
+  FinanceDocumentItem:
+    finance_document_id: id foreign:finance_documents nullable
+    link_key: integer nullable
+    link_id: integer nullable
+    classer_id: id foreign:classers nullable
+    amount: decimal:10,2 nullable
+    quantity: integer nullable
+    discount_amount: decimal:10,2 nullable
+    tax_amount: decimal:10,2 nullable
+    total_amount: decimal:10,2 nullable
+    description: string nullable
+    transaction_date: nullable date
+    reference_no: string nullable
+    private_note: text nullable
+    public_note: text nullable
+    account_id: integer nullable
+  FinanceReconciliation:
+    link_key: integer nullable
+    link_id: integer nullable
+    cleared_date: nullable date
+    user_id: id foreign:users nullable
